@@ -9,8 +9,6 @@ KUBECTL=${KUBECTL:-"kubectl"}
 NAME=${NAME:-"test"}
 WAIT=${WAIT:-"0"}
 
-BOLD='\e[1m'
-DIM='\e[2m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
@@ -26,8 +24,8 @@ apply() {
   $KUBECTL -n "$NAMESPACE" get secret,deployment
 }
 
-echo "before"
-echo "------"
+echo 'before'
+echo '------'
 apply
 
 if [[ "$WAIT" -gt 0 ]]; then
