@@ -8,6 +8,7 @@ NAMESPACE=${NAMESPACE:-"default"}
 KUBECTL=${KUBECTL:-"kubectl"}
 NAME=${NAME:-"test"}
 WAIT=${WAIT:-"0"}
+MODE=${MODE:-"apply"}
 
 RED='\033[0;31m'
 NC='\033[0m' 
@@ -36,7 +37,13 @@ fi
 echo
 echo 'after'
 echo '-----'
-DEPLOYMENT=false apply
+if [[ "$MODE" = "apply" ]]; then
+  DEPLOYMENT=false apply
+else
+  $KUBECTL -n "$NAMESPACE" delete deployment "$NAME"
+  sleep 2
+  $KUBECTL -n "$NAMESPACE" get secret,deployment
+fi
 
 set +e
 $KUBECTL -n "$NAMESPACE" get secret "$NAME" > /dev/null 2>&1

@@ -7,7 +7,7 @@ in pusher/wave where secrets are occasionally deleted during
 The [`test.sh`](./test.sh) script contains the base test case: it creates a
 unique deployment and secret combination from a template, applies it to the
 cluster, waits, and reapplies the template without the deployment, causing a
-prune.
+prune. Setting `MODE=delete` uses `kubectl delete deployment ...` instead.
 
 [`test-serial.sh`](./test-serial.sh) simply runs `test.sh` 20 times or until it
 fails.
@@ -49,3 +49,7 @@ Reproducibility varies between environments:
  * On a fresh single-node minikube VM running 1.18, it takes around 30 attempts
    to reproduce. The [`stress.yaml`](./stress.yaml) deployment saturates 2 CPUs
    and improves reproduction rates to around 1 in 5.
+ * Secrets are never deleted with `kubectl delete deployment ...`, only
+   `kubectl apply --prune` (try setting `MODE=delete`)
+
+

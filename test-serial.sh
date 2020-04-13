@@ -1,6 +1,8 @@
 #!/bin/bash
 
-for i in {1..20}; do
+COUNT=${COUNT:-"20"}
+
+for (( i=0; i<$COUNT; i++ )); do
   echo "try $i:"
   echo "-------"
   ./test.sh
