@@ -19,7 +19,20 @@ script, even running it serially.
 [`stress.yaml`](./stress.yaml) can be deployed to saturate the cluster CPU. This
 seems to improve reproducibility (see below).
 
-# Observations
+[`wave.yaml`](./wave.yaml) is the latest Wave configuration from the master
+branch, generated using `kubectl customize` with no overrides. It applies
+cleanly to most recent Kubernetes distributions, including minikube running
+Kubernetes v1.18.
+
+## Usage
+
+ 1. Create an empty Kubernetes cluster, e.g. minikube.
+ 2. Run [`test-serial.sh`](./test-serial.sh). If desired, set `$NAMESPACE`,
+    `$NAME`, or other environment variables listed in the scripts. By default
+    it repeatedly creates and deletes a deployment/secret named `test` in the
+    namespace `default`.
+
+## Observations
 
 We've been able to replicate this across multiple versions of Kubernetes (v1.14,
 v1.18), multiple versions of `kubectl`, multiple Kubernetes distributions 
